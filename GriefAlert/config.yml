@@ -1,0 +1,35 @@
+# GriefAlert v0.2 by Ardakaz
+
+# Ignore all stealing?
+allow-stealing: false
+
+# Breaking these blocks don't cause alerts. (Material)
+excluded-blocks:
+    - WHEAT
+    - CARROTS
+    - POTATOES
+    - BEETROOTS
+    - NETHER_WART
+    - PUMPKIN
+    - MELON
+    - SUGAR_CANE
+    - KELP_PLANT
+    - KELP
+    - SWEET_BERRY_BUSH
+    - COCOA
+
+# Taking items from these containers cause alerts. (InventoryType)
+valid-containers:
+    - CHEST
+    - BARREL
+    - BLAST_FURNACE
+    - BREWING
+    - FURNACE
+    - DISPENSER
+    - DROPPER
+    - HOPPER
+    - SHULKER_BOX
+    - SMOKER
+
+# [Optional] Dynmap link for external hooks.
+map-link: ""
