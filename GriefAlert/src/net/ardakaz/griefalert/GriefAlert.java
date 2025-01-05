@@ -1,8 +1,3 @@
-//TODO
-//- Ignore rollbacked actions.
-//- Fix container bug.
-//- Make spam limiter.
-
 package net.ardakaz.griefalert;
 
 import net.coreprotect.CoreProtect;
@@ -91,7 +86,7 @@ public class GriefAlert extends JavaPlugin implements Listener {
         String target = inspectBlock(event.getBlock(), event.getPlayer());
         if (target != null) {
             // Alert
-            String message = ChatColor.RED + playerName + " broke " + blockType + " placed by " + target + " at " + x + " " + y + " " + z + " in " + worldName;
+            String message = ChatColor.GRAY + playerName + " broke " + blockType + " placed by " + target + " at " + x + " " + y + " " + z + " in " + worldName;
             alert(message, playerName, "[Map Link](" + MAP_LINK + "/?worldname=" + worldName + "&zoom=7&x=" + x + "&y=" + y + "&z=" + z + ")", target);
         }
     }
@@ -120,7 +115,7 @@ public class GriefAlert extends JavaPlugin implements Listener {
      	    return;
      	}
         
-        // Inv actions
+        // Inv actions (needs fixing)
         InventoryAction action = event.getAction();
         if ((action == InventoryAction.PICKUP_ALL || action == InventoryAction.PICKUP_HALF ||
             action == InventoryAction.PICKUP_ONE || action == InventoryAction.PICKUP_SOME || 
@@ -146,11 +141,11 @@ public class GriefAlert extends JavaPlugin implements Listener {
             
             if (stealing) {
             	// Stealing
-            	String message = ChatColor.RED + playerName + " took " + amount + " " + itemName + " from " + target + "'s container at " + x + " " + y + " " + z + " in " + worldName;
+            	String message = ChatColor.GRAY + playerName + " took " + amount + " " + itemName + " from " + target + "'s container at " + x + " " + y + " " + z + " in " + worldName;
             	alert(message, playerName, "[Map Link](" + MAP_LINK + "/?worldname=" + worldName + "&zoom=7&x=" + x + "&y=" + y + "&z=" + z + ")", target);
             } else {
             	// Putting back
-            	String message = ChatColor.RED + playerName + " put " + amount + " " + itemName + " into " + target + "'s container at " + x + " " + y + " " + z + " in " + worldName;
+            	String message = ChatColor.GRAY + playerName + " put " + amount + " " + itemName + " into " + target + "'s container at " + x + " " + y + " " + z + " in " + worldName;
             	alert(message, playerName, "[Map Link](" + MAP_LINK + "/?worldname=" + worldName + "&zoom=7&x=" + x + "&y=" + y + "&z=" + z + ")", target);
             }
         }
@@ -185,7 +180,7 @@ public class GriefAlert extends JavaPlugin implements Listener {
     	}
     	
     	if (identicalAlerts == 4) {
-    		message = ChatColor.DARK_RED + "Same behavior continues.";
+    		message = ChatColor.GRAY + "Same behavior continues.";
     		mapLink = null;
     	}
     	
