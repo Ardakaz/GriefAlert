@@ -1,6 +1,6 @@
 name: GriefAlert
 main: net.ardakaz.griefalert.GriefAlert
-version: 0.2
+version: 0.2.1
 api-version: 1.21
 depends: [CoreProtect]
 description: A simple grief alert plugin using CoreProtect API.

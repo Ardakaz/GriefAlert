@@ -81,13 +81,27 @@ public class GriefAlert extends JavaPlugin implements Listener {
         int y = event.getBlock().getY();
         int z = event.getBlock().getZ();
         String worldName = event.getBlock().getWorld().getName();
+        String world = "";
+        
+        switch (worldName) {
+        	case "world":
+        		break;
+        	case "world_nether":
+        		world = " in the Nether";
+        		break;
+        	case "world_the_end":
+        		world = " in the End";
+        		break;
+        	default:
+        		world = worldName;
+        }
 
         // Check if grief
         String target = inspectBlock(event.getBlock(), event.getPlayer());
         if (target != null) {
             // Alert
-            String message = ChatColor.GRAY + playerName + " broke " + blockType + " placed by " + target + " at " + x + " " + y + " " + z + " in " + worldName;
-            alert(message, playerName, "[Map Link](" + MAP_LINK + "/?worldname=" + worldName + "&zoom=7&x=" + x + "&y=" + y + "&z=" + z + ")", target);
+            String message = ChatColor.GRAY + playerName + " broke " + blockType + " placed by " + target + " at " + x + " " + y + " " + z + getHumanWorldName(worldName);
+            alert(message, playerName, "[Map Link](" + MAP_LINK + "/?worldname=" + world + "&zoom=7&x=" + x + "&y=" + y + "&z=" + z + ")", target);
         }
     }
     
@@ -141,11 +155,11 @@ public class GriefAlert extends JavaPlugin implements Listener {
             
             if (stealing) {
             	// Stealing
-            	String message = ChatColor.GRAY + playerName + " took " + amount + " " + itemName + " from " + target + "'s container at " + x + " " + y + " " + z + " in " + worldName;
+            	String message = ChatColor.GRAY + playerName + " took " + amount + " " + itemName + " from " + target + "'s container at " + x + " " + y + " " + z + getHumanWorldName(worldName);
             	alert(message, playerName, "[Map Link](" + MAP_LINK + "/?worldname=" + worldName + "&zoom=7&x=" + x + "&y=" + y + "&z=" + z + ")", target);
             } else {
             	// Putting back
-            	String message = ChatColor.GRAY + playerName + " put " + amount + " " + itemName + " into " + target + "'s container at " + x + " " + y + " " + z + " in " + worldName;
+            	String message = ChatColor.GRAY + playerName + " put " + amount + " " + itemName + " into " + target + "'s container at " + x + " " + y + " " + z + getHumanWorldName(worldName);
             	alert(message, playerName, "[Map Link](" + MAP_LINK + "/?worldname=" + worldName + "&zoom=7&x=" + x + "&y=" + y + "&z=" + z + ")", target);
             }
         }
@@ -218,7 +232,7 @@ public class GriefAlert extends JavaPlugin implements Listener {
         
         String[] result = lookup.get(0);
         ParseResult parseResult = coreProtectAPI.parseResult(result);
-        if (parseResult.isRolledBack()) {
+        if (parseResult.isRolledBack() && lookup.size() != 1) {
         	result = lookup.get(1);
             parseResult = coreProtectAPI.parseResult(result);
         }
@@ -229,6 +243,19 @@ public class GriefAlert extends JavaPlugin implements Listener {
         }
         return parseResult.getPlayer();
         
+	}
+	
+	private static String getHumanWorldName(String worldName) {
+		String world = "";
+        
+        if (worldName.endsWith("_nether")) {
+        	world = " in the Nether";
+        }
+        else if (worldName.endsWith("_the_end")) {
+        	world = " in the End";
+        }
+        
+        return world;
 	}
 
     private CoreProtectAPI getCoreProtect() {
