@@ -82,26 +82,13 @@ public class GriefAlert extends JavaPlugin implements Listener {
         int z = event.getBlock().getZ();
         String worldName = event.getBlock().getWorld().getName();
         String world = "";
-        
-        switch (worldName) {
-        	case "world":
-        		break;
-        	case "world_nether":
-        		world = " in the Nether";
-        		break;
-        	case "world_the_end":
-        		world = " in the End";
-        		break;
-        	default:
-        		world = worldName;
-        }
 
         // Check if grief
         String target = inspectBlock(event.getBlock(), event.getPlayer());
         if (target != null) {
             // Alert
             String message = ChatColor.GRAY + playerName + " broke " + blockType + " placed by " + target + " at " + x + " " + y + " " + z + getHumanWorldName(worldName);
-            alert(message, playerName, "[Map Link](" + MAP_LINK + "/?worldname=" + world + "&zoom=7&x=" + x + "&y=" + y + "&z=" + z + ")", target);
+            alert(message, playerName, "[Map Link](" + MAP_LINK + "/?worldname=" + worldName + "&zoom=7&x=" + x + "&y=" + y + "&z=" + z + ")", target);
         }
     }
     
